@@ -38,5 +38,11 @@ public class UserPersistenceAdapter implements UserPersistencePort {
   public void deleteById(Long id) {
     repository.deleteById(id);
   }
+
+  @Override
+  public Boolean existsByEmail(String email) {
+    Boolean userExists = repository.existsByEmail(email);
+    return userExists;
+  }
   
 }

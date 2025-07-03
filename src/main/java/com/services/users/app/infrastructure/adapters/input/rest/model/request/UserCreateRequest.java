@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserCreateRequest {
   
-  @NotBlank(message = "Field firstname cannot be empty or null.")
+  @NotBlank(message = "Field firstName cannot be empty or null.")
   private String firstName;
 
   @NotBlank(message = "Field lastName cannot be empty or null.")

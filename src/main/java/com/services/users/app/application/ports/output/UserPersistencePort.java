@@ -9,5 +9,6 @@ public interface UserPersistencePort {
   Optional<User> findById(Long id);
   List<User> findAll();
   User save(User user);
+  Boolean existsByEmail(String email);
   void deleteById(Long id);
 }

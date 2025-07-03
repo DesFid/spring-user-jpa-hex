@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.services.users.app.domain.exception.UserNotFoundException;
+import com.services.users.app.domain.exceptions.UserEmailAlreadyExistsException;
+import com.services.users.app.domain.exceptions.UserNotFoundException;
 import com.services.users.app.domain.model.ErrorResponse;
 import java.lang.Exception;
 import static com.services.users.app.utils.ErrorCatalog.USER_NOT_FOUND;
 import static com.services.users.app.utils.ErrorCatalog.INVALID_USER;
 import static com.services.users.app.utils.ErrorCatalog.GENERIC_ERROR;
+import static com.services.users.app.utils.ErrorCatalog.USER_EMAIL_ALREADY_EXISTS;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -55,5 +57,14 @@ public class GlobalControllerAdvice {
       .details(Collections.singletonList(exception.getMessage()))
       .timestamp(LocalDateTime.now())
       .build();
+  }
+  
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(UserEmailAlreadyExistsException.class)
+  public ErrorResponse handleUserEmailAlreadyExistsException(
+      UserEmailAlreadyExistsException e) {
+    return ErrorResponse.builder()
+        .code(USER_EMAIL_ALREADY_EXISTS.getCode())
+        .build();
   }
 }
